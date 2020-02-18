@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * Element interface for SignatureStore data structure.
- * @author Callum Onyenaobiya
+ * @author Ashutosh Patra
  * 
  */
 interface Element extends Serializable {
@@ -21,7 +21,15 @@ interface Element extends Serializable {
 	 */
 	public int getSig();
 
+	/**
+	 * @return The mark of the element after block decomposition
+	 */
+	public boolean getMark();
+
 	public void setSig(int signature);
 
 	public void setPow(int power);
+
+	public void setMark();
+
 }

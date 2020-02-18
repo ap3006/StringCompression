@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.ListUtils;
@@ -36,6 +38,8 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 
 	private static final long serialVersionUID = -872470916710859680L;
 
+	private Set<Double> priorities = new LinkedHashSet<Double>();
+
 	private Random prior;
 
 	private BidiMap<Signature, Character> u; // Universe
@@ -59,6 +63,7 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 		sequenceStore = new SequenceStore();
 		
 		max_sig = 0;
+
 	}
 	
 	/**
@@ -298,6 +303,8 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 		}
 		currentBlock.add(list.get(list.size() - 1));
 		blocks.add(currentBlock);
+		//Add implementation to include length of the block for each corresponding element to the sequence node
+		// object. 
 		for (List<Element> block : blocks) {
 			for (Element s : block) {
 			}

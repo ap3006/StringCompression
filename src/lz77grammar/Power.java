@@ -15,6 +15,7 @@ class Power implements Element, Serializable {
 	private int power;
 	private char character;
 	private int signature;
+	private boolean mark;
 
 	/**
 	 * Creates a power object of compressed run of characters i.e. "bbb" = b^3.
@@ -24,6 +25,7 @@ class Power implements Element, Serializable {
 	Power(int power, char character) {
 		this.power = power;
 		this.character = character;
+		this.mark = false;
 	}
 
 
@@ -50,6 +52,16 @@ class Power implements Element, Serializable {
 	@Override
 	public int getSig() {
 		return this.signature;
+	}
+
+	@Override
+	public void setMark() {
+		this.mark = true;
+	}
+
+	@Override
+	public boolean getMark() {
+		return this.mark;
 	}
 
 	/**

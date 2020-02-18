@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * Signature object used to represent a signature in our SignatureStore data structure.
- * @author Callum Onyenaobiya
+ * @author Ashutosh Patra
  * 
  */
 class Signature implements Element, Serializable {
@@ -13,9 +13,11 @@ class Signature implements Element, Serializable {
 	private static final long serialVersionUID = -1513135206877381389L;
 	
 	private int signature;
+	private boolean mark;
 	
 	Signature(int signature) {
 		this.signature = signature;
+		this.mark = false;
 	}
 	
 	@Override
@@ -41,6 +43,16 @@ class Signature implements Element, Serializable {
 	@Override
 	public int getSig() {
 		return this.signature;
+	}
+
+	@Override
+	public void setMark() {
+		this.mark = true;
+	}
+
+	@Override
+	public boolean getMark() {
+		return this.mark;
 	}
 	
 	@Override
