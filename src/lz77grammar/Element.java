@@ -24,6 +24,7 @@ interface Element extends Serializable {
 	/**
 	 * @return The mark of the element after block decomposition
 	 */
+
 	public boolean getMark();
 
 	public void setSig(int signature);
@@ -31,5 +32,9 @@ interface Element extends Serializable {
 	public void setPow(int power);
 
 	public void setMark();
+
+	public int getBlockSize();
+
+	public void setBlockSize(int blockSize);
 
 }

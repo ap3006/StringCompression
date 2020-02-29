@@ -15,6 +15,7 @@ class SequenceNode implements TreePrinterNode, Serializable {
 	private SequenceNode right;
 	Element element;
 	int size;
+	boolean mark;
 	String text;
 	
 	SequenceNode(SequenceNode left, SequenceNode right, Element element, int position, int size) {
@@ -22,6 +23,40 @@ class SequenceNode implements TreePrinterNode, Serializable {
 		this.right = right;
 		this.element = element;
 		this.size = size;
+		this.mark = false;
+	}
+
+
+	public int returnBlockSize(){
+		if (this.left.equals(null) && this.right.equals(null)){
+			return 0;
+		}
+		else if(this.left.equals(null)){
+			return this.left.getBlockSize() + this.left.returnBlockSize();
+		}
+		else if(this.right.equals(null)){
+			return this.right.getBlockSize() + this.right.returnBlockSize();
+		}
+		else{
+			return this.right.getBlockSize() + this.right.returnBlockSize() + this.left.getBlockSize() + this.left.returnBlockSize();
+
+		}
+	}
+
+	public int getBlockSize(){
+		return this.element.getBlockSize();
+	}
+
+	public int sumBlockSizethis(){
+		return this.left.returnBlockSize() + this.right.returnBlockSize();
+	}
+
+	public void setMark(){
+		this.mark = true;
+	}
+
+	public boolean returnMark(){
+		return this.mark;
 	}
 
 	public int size(){

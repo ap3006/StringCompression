@@ -14,10 +14,12 @@ class Signature implements Element, Serializable {
 	
 	private int signature;
 	private boolean mark;
+	private int blockSize;
 	
 	Signature(int signature) {
 		this.signature = signature;
 		this.mark = false;
+		this.blockSize = 0;
 	}
 	
 	@Override
@@ -39,6 +41,7 @@ class Signature implements Element, Serializable {
 	public void setSig(int signature) {
 		this.signature = signature;
 	}
+	
 
 	@Override
 	public int getSig() {
@@ -53,6 +56,16 @@ class Signature implements Element, Serializable {
 	@Override
 	public boolean getMark() {
 		return this.mark;
+	}
+
+	@Override
+	public void setBlockSize(int blockSize) {
+		this.blockSize = blockSize;
+	}
+
+	@Override
+	public int getBlockSize(){
+		return this.blockSize;
 	}
 	
 	@Override

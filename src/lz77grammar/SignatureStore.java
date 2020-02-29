@@ -38,8 +38,6 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 
 	private static final long serialVersionUID = -872470916710859680L;
 
-	private Set<Double> priorities = new LinkedHashSet<Double>();
-
 	private Random prior;
 
 	private BidiMap<Signature, Character> u; // Universe
@@ -143,41 +141,41 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 		return sequence;
 	}
 
-	/**
-	 * @author Ashutosh Patra
-	 * 
-	 * @param a
-	 * @param b
-	 * @return List of compressed binary trees which build signature.
-	 */
-	List<SequenceNode> ranConcatenate(List<SequenceNode> a, List<SequenceNode> b) {
-		List<Element> groups = fixGroups(ListUtils.union(sequenceStore.treeToSequence(a.get(0)),
-				sequenceStore.treeToSequence(b.get(0))));
-		List<Element> elpowgroups = elpow(groups);
+	// /**
+	//  * @author Ashutosh Patra
+	//  * 
+	//  * @param a
+	//  * @param b
+	//  * @return List of compressed binary trees which build signature.
+	//  */
+	// List<SequenceNode> ranConcatenate(List<SequenceNode> a, List<SequenceNode> b) {
+	// 	List<Element> groups = fixGroups(ListUtils.union(sequenceStore.treeToSequence(a.get(0)),
+	// 			sequenceStore.treeToSequence(b.get(0))));
+	// 	List<Element> elpowgroups = elpow(groups);
 
-		SequenceNode s = sequenceStore.sequenceToTree(groups);
-		SequenceNode elpows = sequenceStore.sequenceToTree(elpowgroups);
+	// 	SequenceNode s = sequenceStore.sequenceToTree(groups);
+	// 	SequenceNode elpows = sequenceStore.sequenceToTree(elpowgroups);
 
-		List<SequenceNode> sequence = new ArrayList<SequenceNode>();
+	// 	List<SequenceNode> sequence = new ArrayList<SequenceNode>();
 		
-		while (s.size >= 1){
+	// 	while (s.size >= 1){
 			
-		}
-		sequence.add(s);
+	// 	}
+	// 	sequence.add(s);
 
-		sequenceStore.addSequence(sequence);
-		return sequence; 
-	}
+	// 	sequenceStore.addSequence(sequence);
+	// 	return sequence; 
+	// }
 
-	/**
-	 * @author Ashutosh Patra
-	 * 
-	 * @param text
-	 * @return
-	 */
-	List<SequenceNode> ranSplit(List<SequenceNode> a, List<SequenceNode> b) {
-		return null; 
-	}
+	// /**
+	//  * @author Ashutosh Patra
+	//  * 
+	//  * @param text
+	//  * @return
+	//  */
+	// List<SequenceNode> ranSplit(List<SequenceNode> a, List<SequenceNode> b) {
+	// 	return null; 
+	// }
 
 	/**
 	 * Compresses input string into Power objects, like run-length encoding.
@@ -296,6 +294,7 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 		for (int i = 1; i < list.size() - 1; i++) {
 			if ((Float.compare(signatures.get(list.get(i - 1)), signatures.get(list.get(i))) > 0)
 					&& (Float.compare(signatures.get(list.get(i)), signatures.get(list.get(i + 1))) < 0)) {
+				list.get(i).setMark();
 				blocks.add(currentBlock);
 				currentBlock = new ArrayList<>();
 			}
@@ -307,6 +306,7 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 		// object. 
 		for (List<Element> block : blocks) {
 			for (Element s : block) {
+				s.setBlockSize(block.size());
 			}
 		}
 		return blocks;
