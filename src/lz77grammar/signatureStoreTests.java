@@ -1,10 +1,10 @@
 package lz77grammar;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 /**
  * Tests relating to all signature store data structure operations.

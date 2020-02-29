@@ -1,11 +1,11 @@
 package lz77grammar;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 /**
  * Test for LZ77 related operations.

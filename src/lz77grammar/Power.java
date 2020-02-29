@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * Power object used to represent compressed run of characters in SignatureStore data structure.
- * @author Callum Onyenaobiya
+ * @author Ashutosh Patra
  * 
  */
 class Power implements Element, Serializable {
