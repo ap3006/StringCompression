@@ -4,11 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.ListUtils;
@@ -141,31 +139,38 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 		return sequence;
 	}
 
-	// /**
-	//  * @author Ashutosh Patra
-	//  * 
-	//  * @param a
-	//  * @param b
-	//  * @return List of compressed binary trees which build signature.
-	//  */
-	// List<SequenceNode> ranConcatenate(List<SequenceNode> a, List<SequenceNode> b) {
-	// 	List<Element> groups = fixGroups(ListUtils.union(sequenceStore.treeToSequence(a.get(0)),
-	// 			sequenceStore.treeToSequence(b.get(0))));
-	// 	List<Element> elpowgroups = elpow(groups);
-
-	// 	SequenceNode s = sequenceStore.sequenceToTree(groups);
-	// 	SequenceNode elpows = sequenceStore.sequenceToTree(elpowgroups);
-
-	// 	List<SequenceNode> sequence = new ArrayList<SequenceNode>();
+	/**
+	 * @author Ashutosh Patra
+	 * 
+	 * @param a
+	 * @param b
+	 * @return List of compressed binary trees which build signature.
+	 */
+	List<SequenceNode> ranConcatenate(List<SequenceNode> a, List<SequenceNode> b) {
+		List<Element> groups = fixGroups(ListUtils.union(sequenceStore.treeToSequence(a.get(0)),
+				sequenceStore.treeToSequence(b.get(0))));
+		List<Element> elpowgroups = elpow(groups);
 		
-	// 	while (s.size >= 1){
-			
-	// 	}
-	// 	sequence.add(s);
-
-	// 	sequenceStore.addSequence(sequence);
-	// 	return sequence; 
-	// }
+		SequenceNode s = sequenceStore.sequenceToTree(groups);
+		SequenceNode elpows = sequenceStore.sequenceToTree(elpowgroups);
+		
+		List<SequenceNode> sequence = new ArrayList<SequenceNode>();
+		if(s.size <= 1) {
+			sequence.add(s);
+			sequence.add(elpows);
+			return sequence;
+		}
+		while (s.size >= 1) {
+			sequence.add(s);
+			sequence.add(sequenceStore.sequenceToTree(elpow(sequenceStore.treeToSequence(s))));
+			s = sequenceStore.sequenceToTree(shrink(sequenceStore.treeToSequence(s)));
+		}
+		sequence.add(s);
+		TreePrinter treeprinter = new TreePrinter();
+		treeprinter.print(viewTree(new Signature(sequence.get(sequence.size() - 1).element.getSig())));
+		sequenceStore.addSequence(sequence);
+		return sequence;
+	}
 
 	// /**
 	//  * @author Ashutosh Patra
@@ -173,8 +178,15 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 	//  * @param text
 	//  * @return
 	//  */
-	// List<SequenceNode> ranSplit(List<SequenceNode> a, List<SequenceNode> b) {
+	// List<SequenceNode> ranSplit(List<SequenceNode> a, int i) {
 	// 	return null; 
+
+
+
+
+
+		
+
 	// }
 
 	/**

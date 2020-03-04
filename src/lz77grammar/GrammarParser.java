@@ -96,7 +96,7 @@ import java.util.List;
 	}
 
 	/**
-	 * @return Returns True of CFG is in Chomksy Normal Form.
+	 * @return Returns True if CFG is in Chomksy Normal Form.
 	 */
 	public boolean isCNF() {
 		for (NonTerminal node : map.values()) {

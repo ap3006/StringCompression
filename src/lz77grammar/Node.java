@@ -39,12 +39,12 @@ interface Node extends TreePrinterNode {
 	/**
 	 * Returns left subtree (if applicable)
 	 */
-	@Override
+	// @Override
 	public Node getLeft();
 	/**
 	 * Returns right subtree (if applicable)
 	 */
-	@Override
+	// @Override
 	public Node getRight();
 
 	public void setRight(Node right);

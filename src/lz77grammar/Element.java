@@ -37,4 +37,8 @@ interface Element extends Serializable {
 
 	public void setBlockSize(int blockSize);
 
+	// public int getBlockPosition();
+
+	// public void setBlockPosition();
+
 }

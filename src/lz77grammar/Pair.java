@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * Pair object used to represent a pair of signatures for SignatureStore data structure.
- * @author Callum Onyenaobiya
+ * @author Ashutosh Patra
  * 
  */
 class Pair implements Serializable {

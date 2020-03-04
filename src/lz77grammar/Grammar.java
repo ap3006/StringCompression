@@ -15,6 +15,7 @@ class Grammar {
 	private Node startNode;
 	private List<String> gFactors;
 	private TreePrinter treeprinter;
+	private SignatureStore signatureStore;
 
 	/**
 	 * Build new CnfGrammar from starting node.
@@ -25,6 +26,7 @@ class Grammar {
 		gFactors = new LinkedList<String>();
 		gFactors(startNode, new HashSet<String>());
 		this.treeprinter = new TreePrinter();
+		this.signatureStore = new SignatureStore();
 	}
 
 	public Node getStartNode() {
@@ -143,6 +145,16 @@ class Grammar {
 			return (startNode.equals(grammar.getStartNode()));
 		}
 		return false;
+	}
+
+	
+
+	public boolean checkEquals(Grammar cnfGrammar){
+
+		List<SequenceNode> a = signatureStore.storeSequence(this.evaluate());
+		List<SequenceNode> b = signatureStore.storeSequence(cnfGrammar.evaluate());
+
+		return a.get(a.size() - 1).element.getSig() == b.get(b.size() - 1).element.getSig(); 
 	}
 
 	

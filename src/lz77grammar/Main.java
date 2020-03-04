@@ -91,6 +91,7 @@ public class Main {
 				getAllFiles();
 				break;
 			}
+			
 		} while (!option.equals("q"));
 	}
 
@@ -210,6 +211,7 @@ public class Main {
 			System.out.println("c - compress a file");
 			System.out.println("d - decompress a file");
 			System.out.println("s - convert LZ77 file to SLP");
+			System.out.println("e - equality check");
 			System.out.println("q - back");
 			option = input.nextLine();
 			switch (option) {
@@ -222,8 +224,60 @@ public class Main {
 			case ("s"):
 				lz77Slp();
 				break;
+			case ("e"):
+				equalityTest();
+				break;
 			}
 		} while (!option.equals("q"));
+	}
+
+	/*
+	 @author Ashutosh Patra
+	 */
+	public static void equalityTest() {
+		System.out.println("First File to check: ");
+		String firstFile = input.nextLine();
+		System.out.println("Second File to check: ");
+		String secondFile = input.nextLine();
+		
+		ArrayList<Reference> firstEncodedData;
+		ArrayList<Reference> secondEncodedData;
+		try {
+			FileInputStream firstFileIn = new FileInputStream(firstFile);
+			ObjectInputStream firstObjectIn = new ObjectInputStream(firstFileIn);
+
+			FileInputStream secondFileIn = new FileInputStream(secondFile);
+			ObjectInputStream secondObjectIn = new ObjectInputStream(secondFileIn);
+
+			Object firstObj = firstObjectIn.readObject();
+			firstObjectIn.close();
+			firstEncodedData = (ArrayList<Reference>) firstObj;
+
+			Object secondObj = secondObjectIn.readObject();
+			secondObjectIn.close();
+			secondEncodedData = (ArrayList<Reference>) secondObj;
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return;
+		}
+		
+		Grammar cnfGrammarOne = converter.constructGrammar(lz77Compressor.getTuples(firstEncodedData));
+		Grammar cnfGrammarTwo = converter.constructGrammar(lz77Compressor.getTuples(secondEncodedData));
+
+		System.out.println(firstEncodedData);
+		System.out.println(secondEncodedData);
+
+		List<SequenceNode> a = signatureStore.storeSequence(cnfGrammarOne.evaluate());
+		List<SequenceNode> b = signatureStore.storeSequence(cnfGrammarTwo.evaluate());
+
+		if (a.get(a.size() - 1).element.getSig() == b.get(b.size() - 1).element.getSig()){
+			System.out.println("They are equal");
+		}
+		else {
+			System.out.println("They are not equal");
+		}
+
 	}
 
 	/**
