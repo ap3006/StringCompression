@@ -2,6 +2,7 @@ package lz77grammar;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 /**
  * Node interface used to represent grammars.
@@ -68,4 +69,6 @@ interface Node extends TreePrinterNode {
 	 * @return Set of productions including current Node.
 	 */
 	public Set<String> getProductions(Set<String> productions);
+
+	public List<SequenceNode> returnSignature(SignatureStore signatureStore);
 }

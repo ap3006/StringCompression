@@ -231,10 +231,52 @@ public class Main {
 		} while (!option.equals("q"));
 	}
 
+	public static void equalityTest() {
+		System.out.println("First File to check");
+		String firstFile = input.nextLine();
+		System.out.println("Second FIle to check");
+		String secondFile = input.nextLine();
+
+		ArrayList<Reference> firstEncodedData;
+		ArrayList<Reference> secondEncodedData;
+
+		try{
+			FileInputStream firstFileIn = new FileInputStream(firstFile);
+			ObjectInputStream firstObjectIn = new ObjectInputStream(firstFileIn);
+
+			FileInputStream secondFileIn = new FileInputStream(secondFile);
+			ObjectInputStream secondObjectIn = new ObjectInputStream(secondFileIn);
+
+			Object firstObj = firstObjectIn.readObject();
+			firstObjectIn.close();
+			firstEncodedData = (ArrayList<Reference>) firstObj;
+
+			Object secondObj = secondObjectIn.readObject();
+			secondObjectIn.close();
+			secondEncodedData = (ArrayList<Reference>) secondObj;
+		
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return;
+		}
+
+		Grammar cnfGrammarOne = converter.constructGrammar(lz77Compressor.getTuples(firstEncodedData));
+		Grammar cnfGrammarTwo = converter.constructGrammar(lz77Compressor.getTuples(secondEncodedData));
+
+		System.out.println("Running the new method");
+		if (cnfGrammarOne.checkEquals(cnfGrammarTwo)){
+			System.out.println("They are equal");
+		}
+		else{
+			System.out.println("They are not equal");
+		}
+	}
+
 	/*
+	 * naive equality test
 	 @author Ashutosh Patra
 	 */
-	public static void equalityTest() {
+	public static void naiveEqualityTest() {
 		System.out.println("First File to check: ");
 		String firstFile = input.nextLine();
 		System.out.println("Second File to check: ");
@@ -543,6 +585,9 @@ public class Main {
 		System.out.println("Concatenating " +first+" and " + second +" gives "+ first+second);
 		List<SequenceNode> ab = signatureStore.concatenate(a, b);
 		System.out.println("Signature for " + first+second + " successfully created as: " + ab.get(ab.size() - 1).element.getSig());
+
+	
+
 	}
 	
 	/**

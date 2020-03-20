@@ -2,6 +2,7 @@ package lz77grammar;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 /**
  * Represents a branch of a CnfGrammar i.e. (A)-{@literal >}(B)(C) or (A)-{@literal >}(B)c or (A)-{@literal >}bc
@@ -175,6 +176,11 @@ class Branch implements Node, Cloneable {
 			return (name.equals(branch.name) && left.equals(branch.getLeft()) && right.equals(branch.getRight()));
 		}
 		return false;
+	}
+
+	public List<SequenceNode> returnSignature(SignatureStore signatureStore){
+		
+		return signatureStore.concatenate(this.left.returnSignature(signatureStore), this.right.returnSignature(signatureStore));
 	}
 
 }

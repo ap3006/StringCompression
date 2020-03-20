@@ -13,11 +13,15 @@ import org.junit.Test;
  */
 class signatureStoreTests {
 
+	static void main(String[] args){
+		equalityTest1();
+	}
+
 	/**
 	 * Take two identical strings and confirm identical signatures.
 	 */
 	@Test
-	void equalityTest1() {
+	static void equalityTest1() {
 		SignatureStore signatureStore = new SignatureStore();
 		List<SequenceNode> a = signatureStore.storeSequence("test");
 		List<SequenceNode> b = signatureStore.storeSequence("test");

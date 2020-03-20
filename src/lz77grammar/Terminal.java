@@ -2,6 +2,7 @@ package lz77grammar;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 /**
  * Terminal object represents a terminal production in CnfGrammar i.e. (A) -{@literal >} a
@@ -135,6 +136,10 @@ class Terminal implements Node, Cloneable {
 			return (name.equals(t.getName()) && character == t.getCharacter());
 		}
 		return false;
+	}
+
+	public List<SequenceNode> returnSignature(SignatureStore signatureStore){
+		return signatureStore.storeSequence(String.valueOf(character));
 	}
 
 }

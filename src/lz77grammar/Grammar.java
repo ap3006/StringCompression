@@ -147,16 +147,12 @@ class Grammar {
 		return false;
 	}
 
-	
-
 	public boolean checkEquals(Grammar cnfGrammar){
 
-		List<SequenceNode> a = signatureStore.storeSequence(this.evaluate());
-		List<SequenceNode> b = signatureStore.storeSequence(cnfGrammar.evaluate());
+		List<SequenceNode> a = this.startNode.returnSignature(this.signatureStore);
+		List<SequenceNode> b = cnfGrammar.getStartNode().returnSignature(this.signatureStore);
 
 		return a.get(a.size() - 1).element.getSig() == b.get(b.size() - 1).element.getSig(); 
 	}
 
-	
-	
 }

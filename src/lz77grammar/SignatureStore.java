@@ -172,14 +172,14 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 		return sequence;
 	}
 
-	// /**
-	//  * @author Ashutosh Patra
-	//  * 
-	//  * @param text
-	//  * @return
-	//  */
-	// List<SequenceNode> ranSplit(List<SequenceNode> a, int i) {
-	// 	return null; 
+	/**
+	 * @author Ashutosh Patra
+	 * 
+	 * @param text
+	 * @return
+	 */
+	List<SequenceNode> ranSplit(List<SequenceNode> a, int i) {
+		return null; 
 
 
 
@@ -187,7 +187,7 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 
 		
 
-	// }
+	}
 
 	/**
 	 * Compresses input string into Power objects, like run-length encoding.

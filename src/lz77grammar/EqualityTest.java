@@ -32,13 +32,14 @@ import java.util.List;
       LZ77 compressor = new LZ77(32500,250);
 
       List<Reference> testOne = compressor.compress("aabbaaab");
-      List<Reference> testTwo = compressor.compress("thisisatest");
+      List<Reference> testTwo = compressor.compress("aabbaaab");
       lz77Compressor = new LZ77(32800, 250);
       signatureStore = new SignatureStore();
 
       boolean result = checkEquals(testOne, testTwo);
 
-      System.out.println("Hello World");
+      
+      System.out.println("The result is: " + result);
 
       // System.out.println(result);
 
@@ -53,11 +54,7 @@ import java.util.List;
       Grammar cnfGrammarOne = converter.constructGrammar(lz77Compressor.getTuples((ArrayList<Reference>)first));
       Grammar cnfGrammarTwo = converter.constructGrammar(lz77Compressor.getTuples((ArrayList<Reference>)second));
 
-      List<SequenceNode> a = signatureStore.storeSequence(cnfGrammarOne.evaluate());
-		  List<SequenceNode> b = signatureStore.storeSequence(cnfGrammarTwo.evaluate());
-
-      return a.get(a.size() - 1).element.getSig() == b.get(b.size() - 1).element.getSig();
-      
+      return cnfGrammarOne.checkEquals(cnfGrammarTwo);
     }
 
 
