@@ -161,10 +161,12 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 			return sequence;
 		}
 		while (s.size >= 1) {
+
 			sequence.add(s);
 			sequence.add(sequenceStore.sequenceToTree(elpow(sequenceStore.treeToSequence(s))));
 			s = sequenceStore.sequenceToTree(shrink(sequenceStore.treeToSequence(s)));
 		}
+		
 		sequence.add(s);
 		TreePrinter treeprinter = new TreePrinter();
 		treeprinter.print(viewTree(new Signature(sequence.get(sequence.size() - 1).element.getSig())));
@@ -178,15 +180,60 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 	 * @param text
 	 * @return
 	 */
-	List<SequenceNode> ranSplit(List<SequenceNode> a, int i) {
-		return null; 
-
-
-
-
-
+	List<List<SequenceNode>> ranSplit(List<SequenceNode> s, int i) {
 		
+		List<Element> sequence = sequenceStore.treeToSequence(s.get(0));
 
+		List<Element> a = sequence.subList(0,i);
+		List<Element> b = sequence.subList(i+1,sequence.size());
+
+		List<Element> elpowA = elpow(a);
+		List<Element> elpowB = elpow(b);
+
+		SequenceNode s1 = sequenceStore.sequenceToTree(a);
+		SequenceNode s2 = sequenceStore.sequenceToTree(b);
+
+		SequenceNode elpowS1 = sequenceStore.sequenceToTree(elpowA);
+		SequenceNode elpowS2 = sequenceStore.sequenceToTree(elpowB);
+
+		List< List<SequenceNode>> result = new ArrayList<List<SequenceNode>>();
+		List<SequenceNode> sequenceOne = new ArrayList<SequenceNode>();
+		List<SequenceNode> sequenceTwo = new ArrayList<SequenceNode>();
+		if (s1.size <= 1){
+			sequenceOne.add(s1);
+			sequenceOne.add(elpowS1);
+			result.add(sequenceOne);
+		}
+		else{
+
+			while (s1.size >= 1) {
+
+				sequenceOne.add(s1);
+				sequenceOne.add(sequenceStore.sequenceToTree(elpow(sequenceStore.treeToSequence(s1))));
+				s1 = sequenceStore.sequenceToTree(shrink(sequenceStore.treeToSequence(s1)));
+			}
+			result.add(sequenceOne);
+			sequenceStore.addSequence(sequenceOne);
+
+		}
+
+		if (s2.size <= 1){
+			sequenceOne.add(s2);
+			sequenceOne.add(elpowS2);
+			result.add(sequenceTwo);
+		}
+		else{
+			while (s2.size >= 1) {
+
+				sequenceTwo.add(s2);
+				sequenceTwo.add(sequenceStore.sequenceToTree(elpow(sequenceStore.treeToSequence(s2))));
+				s2 = sequenceStore.sequenceToTree(shrink(sequenceStore.treeToSequence(s2)));
+			}
+			result.add(sequenceTwo);
+			sequenceStore.addSequence(sequenceTwo);
+		}
+		
+		return result;
 	}
 
 	/**
@@ -297,6 +344,23 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 		}
 
 		return result;
+	}
+
+	private int getElementBlock(Element z, List<Element> list){
+		int position = 1;
+
+		for (int i = 1; i < list.size() - 1; i++) {
+			if ((Float.compare(signatures.get(list.get(i - 1)), signatures.get(list.get(i))) > 0)
+					&& (Float.compare(signatures.get(list.get(i)), signatures.get(list.get(i + 1))) < 0)) {
+				position += 1;
+			}
+			if (z.equals(list.get(i-1))){
+				break;
+			}
+		}
+
+		return position;
+
 	}
 
 	private List<List<Element>> blocksRandomized(List<Element> list) {
