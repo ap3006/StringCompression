@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * Object representing a grammar in CNF.
- * @author Callum Onyenaobiya
+ * @author Ashutosh Patra
  * 
  */
 class Grammar {

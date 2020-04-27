@@ -225,7 +225,13 @@ public class Main {
 				lz77Slp();
 				break;
 			case ("e"):
+				long startTime = System.nanoTime();
 				equalityTest();
+				long endTime = System.nanoTime();
+
+				long duration = (endTime - startTime)/1000000; 
+
+				System.out.println("Time taken: " + duration + " milliseconds");
 				break;
 			}
 		} while (!option.equals("q"));
@@ -234,7 +240,7 @@ public class Main {
 	public static void equalityTest() {
 		System.out.println("First File to check");
 		String firstFile = input.nextLine();
-		System.out.println("Second FIle to check");
+		System.out.println("Second File to check");
 		String secondFile = input.nextLine();
 
 		ArrayList<Reference> firstEncodedData;
@@ -343,6 +349,8 @@ public class Main {
 		}
 		catch (IOException ex) {
 			System.out.println("Unable to read file.");
+			System.out.println(ex.toString());
+			System.out.println(Paths.get(file).toAbsolutePath());
 		}
 		
 		try {

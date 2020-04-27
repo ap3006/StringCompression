@@ -378,8 +378,7 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 		}
 		currentBlock.add(list.get(list.size() - 1));
 		blocks.add(currentBlock);
-		//Add implementation to include length of the block for each corresponding element to the sequence node
-		// object. 
+
 		for (List<Element> block : blocks) {
 			for (Element s : block) {
 				s.setBlockSize(block.size());

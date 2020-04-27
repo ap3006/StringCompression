@@ -3,6 +3,9 @@ package lz77grammar;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 /**
   * EqualityTest performs polynomial time equality testing between two strings that have been compressed
   * using LZ77 using the randomised data structure described the paper.
@@ -27,34 +30,72 @@ import java.util.List;
  public class EqualityTest{
 
     static LZ77 lz77Compressor;
-    static SignatureStore signatureStore;
-    public static void main(String[] args){
+
+    @Test
+    static void equalityTestOne(){
+
       LZ77 compressor = new LZ77(32500,250);
 
       List<Reference> testOne = compressor.compress("aabbaaab");
       List<Reference> testTwo = compressor.compress("aabbaaab");
-      lz77Compressor = new LZ77(32800, 250);
-      signatureStore = new SignatureStore();
 
-      boolean result = checkEquals(testOne, testTwo);
-
-      
-      System.out.println("The result is: " + result);
-
-      // System.out.println(result);
-
-  
-      
-    }
-
-    public static boolean checkEquals(List<Reference> first, List<Reference> second){
-      
       Converter converter = new Converter();
 
-      Grammar cnfGrammarOne = converter.constructGrammar(lz77Compressor.getTuples((ArrayList<Reference>)first));
-      Grammar cnfGrammarTwo = converter.constructGrammar(lz77Compressor.getTuples((ArrayList<Reference>)second));
+      Grammar cnfGrammarOne = converter.constructGrammar(lz77Compressor.getTuples((ArrayList<Reference>)testOne));
+      Grammar cnfGrammarTwo = converter.constructGrammar(lz77Compressor.getTuples((ArrayList<Reference>)testTwo));
 
-      return cnfGrammarOne.checkEquals(cnfGrammarTwo);
+      assertTrue(cnfGrammarOne.checkEquals(cnfGrammarTwo));
+    }
+
+
+    @Test
+    static void equalityTestTwo(){
+
+      LZ77 compressor = new LZ77(32500,250);
+
+      List<Reference> testOne = compressor.compress("thisisatest");
+      List<Reference> testTwo = compressor.compress("thisisatest");
+
+      Converter converter = new Converter();
+
+      Grammar cnfGrammarOne = converter.constructGrammar(lz77Compressor.getTuples((ArrayList<Reference>)testOne));
+      Grammar cnfGrammarTwo = converter.constructGrammar(lz77Compressor.getTuples((ArrayList<Reference>)testTwo));
+
+      assertTrue(cnfGrammarOne.checkEquals(cnfGrammarTwo));
+    }
+
+    @Test
+    static void nonEqualityTestOne(){
+
+      LZ77 compressor = new LZ77(32500,250);
+
+      List<Reference> testOne = compressor.compress("thisisatest");
+      List<Reference> testTwo = compressor.compress("aabbaaab");
+
+      Converter converter = new Converter();
+
+      Grammar cnfGrammarOne = converter.constructGrammar(lz77Compressor.getTuples((ArrayList<Reference>)testOne));
+      Grammar cnfGrammarTwo = converter.constructGrammar(lz77Compressor.getTuples((ArrayList<Reference>)testTwo));
+
+      assertFalse(cnfGrammarOne.checkEquals(cnfGrammarTwo));
+    }
+
+    @Test
+    static void nonEqualityTestTwo(){
+
+      LZ77 compressor = new LZ77(32500,250);
+
+      List<Reference> testOne = compressor.compress("thisisatest");
+      List<Reference> testTwo = compressor.compress("thisisates");
+
+      
+
+      Converter converter = new Converter();
+
+      Grammar cnfGrammarOne = converter.constructGrammar(lz77Compressor.getTuples((ArrayList<Reference>)testOne));
+      Grammar cnfGrammarTwo = converter.constructGrammar(lz77Compressor.getTuples((ArrayList<Reference>)testTwo));
+
+      assertFalse(cnfGrammarOne.checkEquals(cnfGrammarTwo));
     }
 
 

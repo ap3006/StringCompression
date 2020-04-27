@@ -24,11 +24,16 @@ interface Element extends Serializable {
 	/**
 	 * @return The mark of the element after block decomposition
 	 */
-
 	public boolean getMark();
 
+	/**
+	 * @return Set the signature of the element
+	 */
 	public void setSig(int signature);
 
+	/**
+	 * @return Set the power of the element
+	 */
 	public void setPow(int power);
 
 	public void setMark();
